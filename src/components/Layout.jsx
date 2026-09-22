@@ -4,13 +4,13 @@ function Layout(){
    const linkClass=  ({isActive}) =>
 
    isActive 
-   ? "px-4 py-2 rounded-xl bg-sage text-white "
-   : "px-4 py-2 rounded-xl hover:bg-cream text-ink"
+   ? "px-4 py-2 rounded-xl bg-sage text-white border-2 border-peach"
+   : "px-4 py-2 rounded-xl hover:bg-cream text-ink border-2 border-sage"
         
     return (
         <div className="flex min-h-screen">
             
-            <nav className="flex flex-col p-4 w-56 gap-3 bg-surface border-r border-line">
+            <nav className="flex flex-col p-4 w-56 gap-8 bg-surface border-r border-line">
                 <p className = "font-heading text-xl font-semibold mb-6 px-4"> CozyFlow</p>
                 <NavLink to="/" end className= {linkClass}>Home</NavLink>
                 <NavLink to="/focus" className= {linkClass}>Focus</NavLink>
