@@ -1,0 +1,40 @@
+@import "tailwindcss";
+ @theme{
+   /* Main palette */
+  --color-cream: #FAF7F2;
+  --color-surface: #FFFFFF;
+  --color-sage: #8BA888;
+  --color-peach: #E8B4A0;
+  --color-ink: #3D3A36;
+  
+   /* Extra colors from the wireframes */
+  --color-line: #E6E0D6;
+  --color-muted: #8A847B;
+  --color-soundbar: #F1ECE4;
+  --color-quote: #F6EFE8;
+
+  /* Mood colors (for the Journal) */
+  --color-mood-great: #8BA888;
+  --color-mood-good: #B9CFB5;
+  --color-mood-okay: #E9D8A6;
+  --color-mood-low: #E8B4A0;
+  --color-mood-rough: #C4B0C8;
+
+  /* Fonts */
+  --font-heading: "Nunito", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+
+ }
+ body {
+  @apply bg-cream text-ink font-body;
+}
+.div {
+  display:flex;
+  flex-direction: column;
+  min-h-screen : full-height ; 
+}
+.nav{
+  width: w-56;
+
+}
