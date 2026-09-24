@@ -11,7 +11,7 @@ function Layout(){
         <div className="flex min-h-screen">
             
             <nav className="flex flex-col p-4 w-56 gap-8 bg-surface border-r border-line">
-                <p className = "font-heading text-xl font-semibold mb-6 px-4"> CozyFlow</p>
+                <h1 className = "font-heading text-xl font-semibold mb-6 px-4"> CozyFlow</h1>
                 <NavLink to="/" end className= {linkClass}>Home</NavLink>
                 <NavLink to="/focus" className= {linkClass}>Focus</NavLink>
                 <NavLink to="/journal"className= {linkClass}>Journal</NavLink>
