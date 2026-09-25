@@ -1,11 +1,19 @@
-import { useState } from "react"
+import { useState ,useEffect  } from "react"
 import { Trash } from "lucide-react";
 import {CirclePlus } from "lucide-react";
 
 function Tasks() {
   const [task, setTask] = useState("");
-  const [list, setList] = useState([]);
+  const [list, setList] = useState(()=>{
+    const saved = localStorage.getItem("cozyflow-tasks");
+    return saved ? JSON.parse(saved) : [];
+  }
+  );
+
   const [filter, setFilter] = useState("all");
+  useEffect(()=>{
+    localStorage.setItem("cozyflow-tasks", JSON.stringify(list));
+  }, [list] );
 
   function handleSubmit(e){
     e.preventDefault();
@@ -45,33 +53,42 @@ function Tasks() {
   const visibleTasks = list.filter((item)=> {
     if (filter === "active") return item.status === "active";
     if(filter === "completed") return item.status === "completed";
-    return item.status === "all";
+    return true;
 
   });  
+  const FILTERS = [
+    {value: "all", label: "All"},
+    {value: "active", label: "Active"},
+    {value: "completed", label: "Completed"}
+  ];
+  
+
   
   return (
     <div className="tasks">
       <h1> Tasks </h1>
-      <form onSubmit={handleSubmit} className="flex gap-2 mb-6">
-        <input className="rounded-xl  border-r px-4 py-2 bg-surface "
+      <form onSubmit={handleSubmit} className="w-full flex gap-2 mb-6">
+        <input className="w-full rounded-xl  border-r px-4 py-2 bg-surface "
         value={task}
         onChange={e=> setTask (e.target.value) }/>
-        <button type="submit" className="rounded-xl px-3 py-1 text-sm bg-periwinkle text-ink border-2 border-dustyrose hover:bg-dustyblue hover:text-white hover:border-dustyrose transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg"><CirclePlus size={18}/></button>
+        <button type="submit" className="rounded-xl px-4 py-2 text-sm bg-sage text-ink border-2 border-peach hover:bg-peach hover:text-white hover:border-sage transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg"><CirclePlus size={18}/></button>
        
       </form>
-      <div className=" flex gap-2 mb-4">
-        <button onClick={()=> setFilter("all")}>All</button>
-        <button onClick={()=> setFilter ("active") }>Active</button>
-        <button onClick={()=> setFilter ("completed") }>Completed</button>
 
-        
+      <div className=" flex gap-5 mb-4">
+        {FILTERS.map((f)=> (
+          <button
+          key = {f.value}
+            onClick ={()=>setFilter(f.value)}
+            className= "px-3 py-2 rounded-xl bg-periwinkle text-sm text-ink border-2 border-dustyrose hover:bg-dustyblue hover:text-white transition duration-300 ease-in-out hover:scale-105  hover:shadow-lg "
+          >{f.label}
+          </button>
+        ))}
       </div>
-      
-     
 
-      <ul className="flex flex-col justify-between items-center gap-3">
+      <ul className="w-full flex flex-col justify-between items-center gap-3">
         {visibleTasks.map((item) => (
-          <li key={item.id} className="flex justify-between items-center rounded-xl border   p-4 bg-surface text-ink ">
+          <li key={item.id} className="w-full flex justify-between items-center rounded-xl border   p-4 bg-surface text-ink ">
             <div className="flex items-center gap-3">
               <input
                 type ="checkbox"

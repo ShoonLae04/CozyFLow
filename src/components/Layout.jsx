@@ -19,7 +19,7 @@ function Layout(){
                 <NavLink to="/stats"className= {linkClass}>Stats</NavLink>
                 <NavLink to="/tasks"className= {linkClass}>Tasks</NavLink>
             </nav>
-            <main>
+            <main className ="w-full flex flex-col p-4 ">
                 <Outlet />
             </main>
         </div>
