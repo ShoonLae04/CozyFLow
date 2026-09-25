@@ -1,6 +1,7 @@
 import { useState ,useEffect  } from "react"
 import { Trash } from "lucide-react";
 import {CirclePlus } from "lucide-react";
+import { Sprout } from "lucide-react";
 
 function Tasks() {
   const [task, setTask] = useState("");
@@ -61,7 +62,11 @@ function Tasks() {
     {value: "active", label: "Active"},
     {value: "completed", label: "Completed"}
   ];
-  
+  const filterClass = (isActive) =>
+  "px-4 py-2 rounded-xl text-sm border-2 transition duration-300 " +
+  (isActive
+    ? "bg-sage text-white border-peach"
+    : "bg-white text-ink border-sage hover:bg-cream");
 
   
   return (
@@ -80,13 +85,19 @@ function Tasks() {
           <button
           key = {f.value}
             onClick ={()=>setFilter(f.value)}
-            className= "px-3 py-2 rounded-xl bg-periwinkle text-sm text-ink border-2 border-dustyrose hover:bg-dustyblue hover:text-white transition duration-300 ease-in-out hover:scale-105  hover:shadow-lg "
+            className={filterClass(f.value === filter)}
           >{f.label}
           </button>
         ))}
       </div>
-
-      <ul className="w-full flex flex-col justify-between items-center gap-3">
+      {visibleTasks.length === 0? (
+          <div className="flex flex-col items-center gap-2 py-12 px-6 rounded-2xl bg-periwinkle/10 border-2 border-dashed border-sage/50 text-center">
+            <Sprout size={36} className="text-sage" />
+            <p className="font-heading text-lg text-ink">No tasks yet</p>
+            <p className="text-sm text-ink/60">Add your first one above and start your cozy day 🌿</p>
+          </div>
+      ):(
+        <ul className="w-full flex flex-col justify-between items-center gap-3">
         {visibleTasks.map((item) => (
           <li key={item.id} className="w-full flex justify-between items-center rounded-xl border   p-4 bg-surface text-ink ">
             <div className="flex items-center gap-3">
@@ -98,20 +109,19 @@ function Tasks() {
               <span className={item.status === "completed" ? "line-through opacity-60" : ""}>
                 {item.title}
               </span>
-            
             </div>
   
             <button  className="rounded-xl px-3 py-1 text-sm bg-honey/40 text-slateblue border-2 border-dustyrose hover:bg-honey hover:text-white hover:border-dustyrose transition duration-300 ease-in-out hover:scale-105 hover:shadow-lg" 
              onClick={() => handleDelete(item.id)}>
             <Trash size={18} />
             </button>
-            
-           
           </li>
           
         ))}
-        
       </ul>
+
+      )}
+      
     </div>
   );
  
