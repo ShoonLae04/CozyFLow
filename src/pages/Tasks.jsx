@@ -79,7 +79,7 @@ function Tasks() {
   
   return (
     <div className="tasks">
-      <h1> Tasks </h1>
+      
       <form onSubmit={handleSubmit} className="w-full flex gap-2 mb-6">
         <input className="w-full rounded-xl  border-r px-4 py-2 bg-surface "
         value={task}
