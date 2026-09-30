@@ -7,6 +7,7 @@ function Tasks() {
   const [task, setTask] = useState("");
   const [list, setList] = useState(()=>{
     const saved = localStorage.getItem("cozyflow-tasks");
+ 
     return saved ? JSON.parse(saved) : [];
   }
   );
@@ -68,6 +69,13 @@ function Tasks() {
     ? "bg-sage text-white border-peach"
     : "bg-white text-ink border-sage hover:bg-cream");
 
+  function getEMptyMessage() {
+    if( list.length ===0) return {title:"No tasks yet" , hint: "Add your first one above 🌿" };
+    if (filter === "active") return {title:"All done!" , hint: "Time for a break " };
+    if (filter === "completed") return {title:"No completed tasks" , hint: "Complete some tasks to see them here" };
+  }
+  const empty = getEMptyMessage();
+
   
   return (
     <div className="tasks">
@@ -93,8 +101,8 @@ function Tasks() {
       {visibleTasks.length === 0? (
           <div className="flex flex-col items-center gap-2 py-12 px-6 rounded-2xl bg-periwinkle/10 border-2 border-dashed border-sage/50 text-center">
             <Sprout size={36} className="text-sage" />
-            <p className="font-heading text-lg text-ink">No tasks yet</p>
-            <p className="text-sm text-ink/60">Add your first one above and start your cozy day 🌿</p>
+            <p className="font-heading text-lg text-ink">{empty.title}</p>
+            <p className="text-sm text-ink/60">{empty.hint}</p>
           </div>
       ):(
         <ul className="w-full flex flex-col justify-between items-center gap-3">
